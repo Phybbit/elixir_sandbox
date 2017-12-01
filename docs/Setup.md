@@ -38,6 +38,26 @@ kerl install 20.1 ~/.kerl/installs/20.1
 . ~/.kerl/installs/20.1/activate
 ```
 
+#### Optional
+You can force to use a specific version Erlang powerd by direnv.
+
+```
+# .envrc
+ERLANG_VERSION=20.1
+
+if has kerl; then
+    ERLANG_INSTALLATION=$(kerl list installations | grep "^$ERLANG_VERSION " | cut -d' ' -f2)
+    if [ -x "$ERLANG_INSTALLATION/activate" ] ; then
+        echo "Using Erlang $ERLANG_VERSION (in $ERLANG_INSTALLATION) via kerl."
+        . $ERLANG_INSTALLATION/activate
+    else
+        echo "Erlang $ERLANG_VERSION not available; using default."
+    fi
+else
+    echo "kerl not available; using default Erlang."
+fi
+```
+
 ## kiex
 Elixir version manager.
 You should install Erlang first.

@@ -22,7 +22,6 @@ Add below to your ~/.direnvrc
 activate_erlang () {
   ERLANG_VERSION=$1
 
-  # If you installed kerl it seaches installed erlang and use it
   if has kerl; then
     ERLANG_INSTALLATION=$(kerl list installations | grep "^$ERLANG_VERSION " | cut -d' ' -f2)
     if [ -x "${ERLANG_INSTALLATION}/activate" ] ; then
@@ -35,6 +34,21 @@ activate_erlang () {
     . $KERL_DEFAULT_INSTALL_DIR/$1/activate
   fi
 }
+
+activate_elixir () {
+  ELIXIR_VERSION=$1
+
+  if has kiex; then
+    if kiex list|grep -q ${ELIXIR_VERSION} ; then
+      kiex use ${ELIXIR_VERSION}
+    else
+      echo "Elixir ${ELIXIR_VERSION} not available; using default."
+    fi
+  else
+    echo "kiex is not available; Use default Elixir"
+  fi
+}
+
 ```
 
 Change permission for executable:

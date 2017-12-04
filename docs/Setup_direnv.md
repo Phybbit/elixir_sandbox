@@ -20,19 +20,23 @@ Add below to your ~/.direnvrc
 
 ```
 activate_erlang () {
+  # Ignore error because activate script uses grep with return 1
+  set +e
   ERLANG_VERSION=$1
 
   if has kerl; then
     ERLANG_INSTALLATION=$(kerl list installations | grep "^$ERLANG_VERSION " | cut -d' ' -f2)
     if [ -x "${ERLANG_INSTALLATION}/activate" ] ; then
-        $ERLANG_INSTALLATION/activate
+      echo "Activating ${ERLANG_INSTALLATION}"
+      source $ERLANG_INSTALLATION/activate
     else
-        echo "Erlang $ERLANG_VERSION not available; using default."
+      echo "Erlang $ERLANG_VERSION not available; using default."
     fi
   else
     echo "kerl isn't available; Use default Erlang"
     . $KERL_DEFAULT_INSTALL_DIR/$1/activate
   fi
+  set -e
 }
 
 activate_elixir () {
@@ -40,7 +44,8 @@ activate_elixir () {
 
   if has kiex; then
     if kiex list|grep -q ${ELIXIR_VERSION} ; then
-      kiex use ${ELIXIR_VERSION}
+      # We cannot use `kiex use ${ELIXIR_VERSION}` here :-(
+      . $HOME/.kiex/elixirs/elixir-${ELIXIR_VERSION}.env
     else
       echo "Elixir ${ELIXIR_VERSION} not available; using default."
     fi

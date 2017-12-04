@@ -3,7 +3,7 @@
 Show how easily use poenix on your environment.
 I'll tell you the difference with ruby.
 
-You can confirm the state with feature/hello-phoenix-branch
+You can confirm the state with [this branch](https://github.com/Phybbit/elixir_sandbox/tree/feature/hello_phoenix)
 
 ## Precondition
 - You should install Elixir first :see [doc](./Setup.md)

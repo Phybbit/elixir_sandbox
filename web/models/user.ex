@@ -14,7 +14,7 @@ defmodule Todo.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:email, :password_hash])
-    |> validate_required([:email, :password_hash])
+    |> cast(params, ~w(email), [])
+    |> validate_format(:email, ~r/@/)
   end
 end

@@ -39,5 +39,5 @@ config :hi_phoenix, HiPhoenix.Repo,
   username: "postgres",
   password: "postgres",
   database: "hi_phoenix_dev",
-  hostname: "localhost",
+  hostname: "db",
   pool_size: 10
